@@ -23,6 +23,7 @@ const router = createBrowserRouter([
         element: <Contact />,
         loader: contactLoader,
         action: contactAction,
+        errorElement: <ErrorPage />
       },
       {
         path: "contacts/:contactId/edit",
