@@ -1,0 +1,11 @@
+/* START__BASE */
+@import "tailwindcss/base";
+/* END__BASE */
+
+/* START__COMPONENTS */
+@import "tailwindcss/components";
+/* END__COMPONENTS */
+
+/* START__UTILITIES */
+@import "tailwindcss/utilities";
+/* END__UTILITIES */
