@@ -7,4 +7,6 @@ $ pnpm add react-router-dom localforage match-sorter sort-by
 $ pnpm add -D tailwindcss postcss autoprefixer postcss-import
 $ npx tailwindcss init -p
 
+// add prettier
+$ pnpm add -D prettier prettier-plugin-tailwindcss
 ```
