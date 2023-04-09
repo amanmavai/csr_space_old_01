@@ -11,7 +11,7 @@ export async function loader({request}) {
 
 export async function action() {
   const contact = await createContact();
-  return redirect(`/contacts/${contact.id}/edit`);
+  return redirect(`/cx/contacts/${contact.id}/edit`);
 }
 
 export function Component() {
