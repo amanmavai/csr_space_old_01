@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Todo = ({ todo, index, completeTodo, removeTodo }) => (
+interface TodoItem {
+  text: string;
+  isCompleted: boolean;
+}
+
+interface TodoProps {
+  todo: TodoItem;
+  index: number;
+  completeTodo: (index: number) => void;
+  removeTodo: (index: number) => void;
+}
+
+const Todo = ({ todo, index, completeTodo, removeTodo }: TodoProps) => (
   <div
     className={`flex justify-between items-center bg-gray-200 p-4 rounded-md my-2 cursor-pointer${
       todo.isCompleted ? " line-through text-gray-500" : ""
@@ -17,10 +29,14 @@ const Todo = ({ todo, index, completeTodo, removeTodo }) => (
   </div>
 );
 
-const TodoForm = ({ addTodo }) => {
-  const [value, setValue] = React.useState("");
+interface TodoFormProps {
+  addTodo: (text: string) => void;
+}
 
-  const handleSubmit = (e) => {
+const TodoForm = ({ addTodo }: TodoFormProps) => {
+  const [value, setValue] = useState("");
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!value) return;
     addTodo(value);
@@ -40,21 +56,21 @@ const TodoForm = ({ addTodo }) => {
   );
 };
 
-export function Component(){
-  const [todos, setTodos] = React.useState([]);
+export function Component() {
+  const [todos, setTodos] = useState<TodoItem[]>([]);
 
-  const addTodo = (text) => {
-    const newTodos = [...todos, { text }];
+  const addTodo = (text: string) => {
+    const newTodos = [...todos, { text, isCompleted: false }];
     setTodos(newTodos);
   };
 
-  const completeTodo = (index) => {
+  const completeTodo = (index: number) => {
     const newTodos = [...todos];
     newTodos[index].isCompleted = !newTodos[index].isCompleted;
     setTodos(newTodos);
   };
 
-  const removeTodo = (index) => {
+  const removeTodo = (index: number) => {
     const newTodos = [...todos];
     newTodos.splice(index, 1);
     setTodos(newTodos);
@@ -77,4 +93,4 @@ export function Component(){
       </div>
     </div>
   );
-};
+}
