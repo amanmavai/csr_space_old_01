@@ -14,7 +14,7 @@ export async function action() {
   return redirect(`/contacts/${contact.id}/edit`);
 }
 
-export default function ContactsRoot() {
+export function Component() {
   const { contacts, q } = useLoaderData();
   const navigation = useNavigation();
   const submit = useSubmit();

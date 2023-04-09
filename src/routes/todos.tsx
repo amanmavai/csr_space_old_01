@@ -40,7 +40,7 @@ const TodoForm = ({ addTodo }) => {
   );
 };
 
- const App = () => {
+export function Component(){
   const [todos, setTodos] = React.useState([]);
 
   const addTodo = (text) => {
@@ -78,5 +78,3 @@ const TodoForm = ({ addTodo }) => {
     </div>
   );
 };
-
-export default App;
