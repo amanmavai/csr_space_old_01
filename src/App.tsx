@@ -139,7 +139,7 @@ function MobileMenu({ navItems }: MenuProps) {
           className="rounded-md md:hidden"
           width={320}
           footer={null}
-          closeIcon={<XMarkIcon className="mt-5 block h-6 w-6" />}
+          closeIcon={<XMarkIcon className="block h-6 w-6" />}
         >
           <div className="space-y-4">
             {navItems.map((n) => {
