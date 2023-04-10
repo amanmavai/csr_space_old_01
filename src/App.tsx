@@ -90,6 +90,7 @@ const navItems = [
   { name: "Blog", to: "/blog" },
   { name: "Play", to: "/play" },
   { name: "Dashboard", to: "/dashboard" },
+  { name: "Todos", to: "/todos" }
 ];
 
 type MenuItem = {
