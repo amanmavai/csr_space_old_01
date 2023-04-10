@@ -1,17 +1,11 @@
 import * as React from "react";
-import {
-  Outlet,
-  Link,
-  createBrowserRouter,
-  RouterProvider,
-  NavLink,
-} from "react-router-dom";
+import { Outlet, Link, createBrowserRouter, RouterProvider, NavLink } from "react-router-dom";
 import cn from "classnames";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Modal } from "antd";
-import Contact, {loader as contactLoader, action as contactAction} from "./routes/contact";
+import Contact, { loader as contactLoader, action as contactAction } from "./routes/contact";
 import ErrorPage from "./error-page";
-import EditContact, {action as editAction} from "./routes/edit";
+import EditContact, { action as editAction } from "./routes/edit";
 import { action as destroyAction } from "./routes/destroy";
 import Index from "./routes";
 
@@ -52,7 +46,7 @@ const router = createBrowserRouter([
       },
       {
         path: "todos",
-        lazy: () => import("./routes/todos")
+        lazy: () => import("./routes/todos"),
       },
       {
         path: "*",
@@ -201,10 +195,12 @@ function Layout() {
 
 function NoMatch() {
   return (
-    <div>
-      <h2>Nothing to see here!</h2>
+    <div className="text-lg p-4">
+      <h2 className="text-orange-500">Nothing to see here!</h2>
       <p>
-        <Link to="/">Go to the home page</Link>
+        <Link to="/" className="text-blue-400">
+          Go to the home page
+        </Link>
       </p>
     </div>
   );
