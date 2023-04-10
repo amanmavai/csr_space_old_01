@@ -1,6 +1,4 @@
-.contacts_root textarea,
-.contacts_root input,
-.contacts_root button {
+.contacts_root :where(textarea, input, button) {
   font-size: 1rem;
   font-family: inherit;
   border: none;
@@ -16,9 +14,7 @@
   font-weight: 500;
 }
 
-.contacts_root textarea:hover,
-.contacts_root input:hover,
-.contacts_root button:hover {
+.contacts_root :where(textarea:hover, input:hover, button:hover) {
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.6), 0 1px 2px hsla(0, 0%, 0%, 0.2);
 }
 
