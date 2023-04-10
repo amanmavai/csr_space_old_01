@@ -195,7 +195,7 @@ function Layout() {
 
 function NoMatch() {
   return (
-    <div className="text-lg p-4">
+    <div className="text-lg p-4 flex flex-col gap-4 items-center">
       <h2 className="text-orange-500">Nothing to see here!</h2>
       <p>
         <Link to="/" className="text-blue-400">
@@ -208,7 +208,7 @@ function NoMatch() {
 
 function Home() {
   return (
-    <div>
+    <div className="justify-center flex text-2xl text-green-500">
       <h2>Home</h2>
     </div>
   );
