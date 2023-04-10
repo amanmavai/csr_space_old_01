@@ -1,7 +1,8 @@
 import { Form, useLoaderData, useFetcher } from "react-router-dom";
+import type {LoaderFunctionArgs, ActionFunctionArgs} from "react-router-dom";
 import { getContact, updateContact } from "../contacts";
 
-export async function loader({ params }) {
+export async function loader({ params }: LoaderFunctionArgs) {
   const contact = await getContact(params.contactId);
   if (!contact) {
     throw new Response("", {
@@ -12,7 +13,7 @@ export async function loader({ params }) {
   return { contact };
 }
 
-export async function action({ request, params }) {
+export async function action({ request, params }: ActionFunctionArgs) {
   let formData = await request.formData();
   return updateContact(params.contactId, {
     favorite: formData.get("favorite") === "true",
