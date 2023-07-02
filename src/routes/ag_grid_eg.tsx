@@ -1,5 +1,7 @@
 import React from "react";
-import { AgGridTable } from "../components/ag_grid_table";
+import { AgGridTable, getOnSortChanged } from "../components/ag_grid_table";
+import { ColDef } from "ag-grid-community";
+import { CustomTotalAndFilteredRowCount } from "../components/ag_grid_utils";
 
 export function Component() {
   const gridRef = React.useRef(null); // for accessing grid api
@@ -7,7 +9,7 @@ export function Component() {
   const [rowData, setRowData] = React.useState();
 
   // Each column definition results in one column
-  const [columnDefs, setColumnDefs] = React.useState([
+  const [columnDefs, setColumnDefs] = React.useState<ColDef[]>([
     { field: "make", filter: true },
     { field: "model", filter: "agMultiColumnFilter", menuTabs: ["filterMenuTab"] },
     { field: "price", filter: true },
@@ -20,5 +22,34 @@ export function Component() {
       .then((rowData) => setRowData(rowData));
   }, []);
 
-  return <AgGridTable ref={gridRef} rowData={rowData} columnDefs={columnDefs} />;
+  const statusBar = React.useMemo(() => {
+    return {
+      statusPanels: [
+        {
+          statusPanel: CustomTotalAndFilteredRowCount,
+          statusPanelParams: {
+            label: "Row Items",
+          },
+          align: "left",
+        },
+        {
+          statusPanel: "agAggregationComponent",
+          statusPanelParams: {
+            aggFuncs: ["avg", "min", "max"],
+          },
+        },
+      ],
+    };
+  }, []);
+
+  return (
+    <AgGridTable
+      ref={gridRef}
+      rowData={rowData}
+      columnDefs={columnDefs}
+      enableRangeSelection
+      onSortChanged={getOnSortChanged(["price"])}
+      statusBar={statusBar}
+    />
+  );
 }
