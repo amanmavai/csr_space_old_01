@@ -184,7 +184,7 @@ function Footer() {
 function Layout() {
   const classes = "py-6 sm:px-6 lg:px-8";
   return (
-    <div className="remix-app container mx-auto flex min-h-full flex-col">
+    <div className="remix-app container mx-auto flex h-full flex-col">
       <header className={classes}>
         <Header />
       </header>
