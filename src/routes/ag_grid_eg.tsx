@@ -1,6 +1,6 @@
 import React from "react";
 import { AgGridTable, getOnSortChanged } from "../components/ag_grid_table";
-import { ColDef } from "ag-grid-community";
+import { ColDef, StatusPanelDef } from "ag-grid-community";
 import { CustomTotalAndFilteredRowCount } from "../components/ag_grid_utils";
 
 export function Component() {
@@ -22,7 +22,9 @@ export function Component() {
       .then((rowData) => setRowData(rowData));
   }, []);
 
-  const statusBar = React.useMemo(() => {
+  const statusBar = React.useMemo<{
+    statusPanels: StatusPanelDef[];
+  }>(() => {
     return {
       statusPanels: [
         {
