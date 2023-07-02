@@ -9,7 +9,7 @@ export function Component() {
   // Each column definition results in one column
   const [columnDefs, setColumnDefs] = React.useState([
     { field: "make", filter: true },
-    { field: "model", filter: "agMultiColumnFilter" },
+    { field: "model", filter: "agMultiColumnFilter", menuTabs: ["filterMenuTab"] },
     { field: "price", filter: true },
   ]);
 
