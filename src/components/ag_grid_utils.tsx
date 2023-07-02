@@ -1,8 +1,9 @@
 import React from "react";
 import { getTotalRowCount, getFilteredRowCountValue } from "./ag_grid_table";
 import { LabelValue } from "./components";
+import { IStatusPanelParams } from "ag-grid-community";
 
-export const CustomTotalAndFilteredRowCount = (props) => {
+export const CustomTotalAndFilteredRowCount = (props: IStatusPanelParams) => {
   const [totalCount, setTotalCount] = React.useState(0);
   const [filteredCount, setFilteredCount] = React.useState(0);
 
