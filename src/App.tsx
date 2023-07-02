@@ -49,6 +49,10 @@ const router = createBrowserRouter([
         lazy: () => import("./routes/todos"),
       },
       {
+        path: "ag-grid-eg",
+        lazy: () => import("./routes/ag_grid_eg"),
+      },
+      {
         path: "*",
         element: <NoMatch />,
       },
@@ -90,7 +94,7 @@ const navItems = [
   { name: "Blog", to: "/blog" },
   { name: "Play", to: "/play" },
   { name: "Dashboard", to: "/dashboard" },
-  { name: "Todos", to: "/todos" }
+  { name: "Todos", to: "/todos" },
 ];
 
 type MenuItem = {
