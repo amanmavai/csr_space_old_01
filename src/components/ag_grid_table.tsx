@@ -20,7 +20,7 @@ export const AgGridTable = React.forwardRef<Ref, AgGridReactProps>(function AgGr
   }, []);
 
   return (
-    <div className="ag-theme-alpine">
+    <div className="ag-theme-alpine h-full w-full">
       <AgGridReact
         ref={gridRef}
         onGridReady={(params) => params.api.sizeColumnsToFit()}
