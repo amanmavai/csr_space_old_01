@@ -13,4 +13,5 @@ $ pnpm add -D prettier prettier-plugin-tailwindcss
 // add eslint
 $ pnpm add -D eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react
 
+$ pnpm dlx shadcn-ui@latest init
 ```
