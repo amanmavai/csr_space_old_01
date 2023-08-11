@@ -95,6 +95,7 @@ const navItems = [
   { name: "Play", to: "/play" },
   { name: "Dashboard", to: "/dashboard" },
   { name: "Todos", to: "/todos" },
+  { name: "AgGrid Table", to: "/ag-grid-eg" },
 ];
 
 type MenuItem = {
