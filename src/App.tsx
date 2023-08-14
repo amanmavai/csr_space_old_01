@@ -53,6 +53,10 @@ const router = createBrowserRouter([
         lazy: () => import("./routes/ag_grid_eg"),
       },
       {
+        path: "components-playground",
+        lazy: () => import("./routes/components_playground"),
+      },
+      {
         path: "*",
         element: <NoMatch />,
       },
@@ -96,6 +100,7 @@ const navItems = [
   { name: "Dashboard", to: "/dashboard" },
   { name: "Todos", to: "/todos" },
   { name: "AgGrid Table", to: "/ag-grid-eg" },
+  { name: "Components Playground", to: "/components-playground" },
 ];
 
 type MenuItem = {
