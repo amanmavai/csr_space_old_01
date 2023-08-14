@@ -1,3 +1,4 @@
+import { DefaultOptionType } from "antd/es/select";
 import classNames from "classnames";
 
 interface Props {
@@ -17,4 +18,30 @@ export function LabelValue({ label, value, uom, className, labelClassName, value
       {uom && <div className="ml-1 text-xs">{uom}</div>}
     </div>
   );
+}
+
+interface MultiSelectProps {
+  uniqueItems: DefaultOptionType[];
+  selectedValues: DefaultOptionType[];
+  onChange: (values: DefaultOptionType[]) => void;
+  layout: "col" | "row";
+  wrapperClassName: string;
+  className: string;
+  title: string;
+  testId: string;
+  multipleCount: number;
+}
+
+export function MultiSelect({
+  uniqueItems,
+  selectedValues,
+  onChange,
+  layout = "col",
+  wrapperClassName,
+  className,
+  title,
+  testId,
+  multipleCount = 1,
+}: MultiSelectProps) {
+  
 }
