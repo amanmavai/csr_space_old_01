@@ -1,3 +1,5 @@
+import React from "react";
+import { MultiSelect } from "@/components/components";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -8,8 +10,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { DefaultOptionType } from "antd/es/select";
 
 export function Component() {
+  const [selectedValues , setSelectedValues] = React.useState<DefaultOptionType[]>([]);
+  
   return (
     <div className="container mx-auto space-y-4">
       <div className="flex items-center space-x-4">
@@ -38,6 +43,22 @@ export function Component() {
               </SelectGroup>
             </SelectContent>
           </Select>
+        </div>
+      </div>
+
+      <div className="flex items-center space-x-4">
+        <div>MultiSelect</div>
+        <div>
+          <MultiSelect
+            uniqueItems={[
+              { label: "First", value: "first" },
+              { label: "Second", value: "second" },
+              { label: "Third", value: "third" },
+              { label: "Fourth", value: "fourth" },
+            ]}
+            selectedValues={selectedValues}
+            onChange={values => setSelectedValues(values)}
+          />
         </div>
       </div>
     </div>
