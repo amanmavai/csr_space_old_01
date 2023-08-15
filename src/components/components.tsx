@@ -1,6 +1,7 @@
 import { Select, Tag, Tooltip } from "antd";
 import type { DefaultOptionType } from "antd/es/select";
 import classNames from "classnames";
+import React from "react";
 const { Option } = Select;
 
 interface Props {
@@ -22,7 +23,7 @@ export function LabelValue({ label, value, uom, className, labelClassName, value
   );
 }
 
-export function CustomTag({ children }) {
+export function CustomTag({ children }: {children: React.ReactNode}) {
   return (
     <Tag color={"#108ee9"} style={{ marginTop: "5px" }}>
       {children}
@@ -75,8 +76,8 @@ export function MultiSelect({
 
       const remainingElements = (
         <div className="tw-p-1">
-          {remainingLabels.map((x) => (
-            <CustomTag key={x}>{x}</CustomTag>
+          {remainingLabels.map((x, index) => (
+            <CustomTag key={index}>{x}</CustomTag>
           ))}
         </div>
       );
