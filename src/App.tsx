@@ -57,6 +57,10 @@ const router = createBrowserRouter([
         lazy: () => import("./routes/components_playground"),
       },
       {
+        path: "traffic-light",
+        lazy: () => import("./routes/traffic_light"),
+      },
+      {
         path: "*",
         element: <NoMatch />,
       },
@@ -101,6 +105,7 @@ const navItems = [
   { name: "Todos", to: "/todos" },
   { name: "AgGrid Table", to: "/ag-grid-eg" },
   { name: "Components Playground", to: "/components-playground" },
+  { name: "Traffic Light", to: "/traffic-light" },
 ];
 
 type MenuItem = {
