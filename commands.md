@@ -16,4 +16,8 @@ $ pnpm add -D eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser 
 $ pnpm dlx shadcn-ui@latest init
 
 $ pnpm dlx shadcn-ui@latest add select
+
+$ pnpm add xstate
+$ pnpm add @xstate/react
+
 ```
