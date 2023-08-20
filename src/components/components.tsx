@@ -33,7 +33,7 @@ export function LabelValue({ label, value, uom, className, labelClassName, value
 
 export function CustomTag({ children }: { children: React.ReactNode }) {
   return (
-    <Tag color={"#108ee9"} style={{ marginTop: "5px" }}>
+    <Tag color={"success"} style={{ marginTop: "5px" }}>
       {children}
     </Tag>
   );
@@ -91,7 +91,7 @@ export function MultiSelect({
       );
 
       return (
-        <Tooltip title={remainingElements} key="remaining-tooltip" color={"geekblue"}>
+        <Tooltip title={remainingElements} key="remaining-tooltip" color={"white"}>
           <span className="tw-ml-2 tw-cursor-pointer">+{remainingCount} more</span>
         </Tooltip>
       );
