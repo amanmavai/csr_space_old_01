@@ -73,7 +73,7 @@ export function MultiSelect({
     const index = selectedValues.findIndex((item) => item.value === value);
     if (index < multipleCount) {
       return (
-        <Tag closable={closable} onClose={onClose} key={value}>
+        <Tag closable={closable} onClose={onClose} key={value} className="flex items-center" color="success">
           {label}
         </Tag>
       );
