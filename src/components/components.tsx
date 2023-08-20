@@ -44,12 +44,12 @@ interface MultiSelectProps {
   uniqueItems: DefaultOptionType[];
   selectedValues: DefaultOptionType[];
   onChange: (values: DefaultOptionType[]) => void;
-  layout: "col" | "row";
-  wrapperClassName: string;
-  className: string;
-  title: string;
-  testId: string;
-  multipleCount: number;
+  layout?: "col" | "row";
+  wrapperClassName?: string;
+  className?: string;
+  title?: string;
+  testId?: string;
+  multipleCount?: number;
 }
 
 export function MultiSelect({
@@ -60,7 +60,7 @@ export function MultiSelect({
   wrapperClassName,
   className,
   title,
-  testId,
+  testId="multi-select",
   multipleCount = 1,
 }: MultiSelectProps) {
   const selectClassName = classNames(

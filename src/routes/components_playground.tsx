@@ -47,7 +47,6 @@ export function Component() {
       </div>
 
       <div className="flex items-center space-x-4">
-        <div>MultiSelect</div>
         <div>
           <MultiSelect
             uniqueItems={[
@@ -58,6 +57,7 @@ export function Component() {
             ]}
             selectedValues={selectedValues}
             onChange={values => setSelectedValues(values)}
+            title="MultiSelect"
           />
         </div>
       </div>
