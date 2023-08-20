@@ -4,6 +4,14 @@ import classNames from "classnames";
 import React from "react";
 const { Option } = Select;
 
+type CustomTagProps = {
+  label: React.ReactNode;
+  value: any;
+  disabled: boolean;
+  onClose: (event?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  closable: boolean;
+};
+
 interface Props {
   label: React.ReactNode;
   value: React.ReactNode;
@@ -23,7 +31,7 @@ export function LabelValue({ label, value, uom, className, labelClassName, value
   );
 }
 
-export function CustomTag({ children }: {children: React.ReactNode}) {
+export function CustomTag({ children }: { children: React.ReactNode }) {
   return (
     <Tag color={"#108ee9"} style={{ marginTop: "5px" }}>
       {children}
@@ -61,7 +69,7 @@ export function MultiSelect({
     wrapperClassName
   );
 
-  const tagRender = ({ label, value, closable, onClose }) => {
+  const tagRender = ({ label, value, closable, onClose }: CustomTagProps) => {
     const index = selectedValues.findIndex((item) => item.value === value);
     if (index < multipleCount) {
       return (
@@ -88,7 +96,7 @@ export function MultiSelect({
         </Tooltip>
       );
     }
-    return null;
+    return <span></span>;
   };
 
   return (
@@ -101,7 +109,7 @@ export function MultiSelect({
         style={{ minWidth: 144 }}
         className={className}
         onChange={(_values, options) => {
-          onChange(options);
+          onChange(options as DefaultOptionType[]);
         }}
         mode="multiple"
         getPopupContainer={(node) => node.parentNode}
