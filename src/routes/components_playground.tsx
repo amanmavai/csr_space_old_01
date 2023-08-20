@@ -16,7 +16,7 @@ export function Component() {
   const [selectedValues , setSelectedValues] = React.useState<DefaultOptionType[]>([]);
   
   return (
-    <div className="container mx-auto space-y-4">
+    <div className="container mx-auto space-y-8">
       <div className="flex items-center space-x-4">
         <div>Button</div>
         <div>
