@@ -22,5 +22,6 @@ $ pnpm add @xstate/react
 
 $ pnpm add @tanstack/react-query
 $ pnpm add -D @tanstack/eslint-plugin-query
+$ pnpm add @tanstack/react-query-devtools
 
 ```
