@@ -11,6 +11,7 @@ module.exports = {
     // Make sure it's always the last config, so it gets the chance to override other configs.
     "eslint-config-prettier",
   ],
+  plugins: ["@tanstack/query"],
   settings: {
     react: {
       // Tells eslint-plugin-react to automatically detect the version of React to use.
@@ -27,6 +28,8 @@ module.exports = {
   rules: {
     // Add your own rules here to override ones from the extended configs.
     // suppress errors for missing 'import React' in files
-   "react/react-in-jsx-scope": "off",
+    "react/react-in-jsx-scope": "off",
+    "@tanstack/query/exhaustive-deps": "error",
+    "@tanstack/query/prefer-query-object-syntax": "error",
   },
 };
