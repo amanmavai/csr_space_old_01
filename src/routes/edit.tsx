@@ -1,44 +1,28 @@
-import { Form, useLoaderData, redirect, useNavigate } from "react-router-dom";
+import { Form, useLoaderData, redirect, useNavigate, ActionFunctionArgs } from "react-router-dom";
 import { updateContact } from "../contacts";
+import { queryClient } from "@/App";
 
-export async function action({ request, params }) {
-    const formData = await request.formData();
-    const updates = Object.fromEntries(formData);
-    await updateContact(params.contactId, updates);
-    return redirect(`/cx/contacts/${params.contactId}`);
+export async function action({ request, params }: ActionFunctionArgs) {
+  const formData = await request.formData();
+  const updates = Object.fromEntries(formData);
+  await updateContact(params.contactId, updates);
+  queryClient.invalidateQueries({ queryKey: ["contacts"] });
+  return redirect(`/cx/contacts/${params.contactId}`);
 }
-
 export default function EditContact() {
-  const { contact } = useLoaderData();
+  const contact = useLoaderData();
   const navigate = useNavigate();
 
   return (
     <Form method="post" id="contact-form">
       <p>
         <span>Name</span>
-        <input
-          placeholder="First"
-          aria-label="First name"
-          type="text"
-          name="first"
-          defaultValue={contact.first}
-        />
-        <input
-          placeholder="Last"
-          aria-label="Last name"
-          type="text"
-          name="last"
-          defaultValue={contact.last}
-        />
+        <input placeholder="First" aria-label="First name" type="text" name="first" defaultValue={contact.first} />
+        <input placeholder="Last" aria-label="Last name" type="text" name="last" defaultValue={contact.last} />
       </p>
       <label>
         <span>Twitter</span>
-        <input
-          type="text"
-          name="twitter"
-          placeholder="@jack"
-          defaultValue={contact.twitter}
-        />
+        <input type="text" name="twitter" placeholder="@jack" defaultValue={contact.twitter} />
       </label>
       <label>
         <span>Avatar URL</span>
@@ -52,17 +36,18 @@ export default function EditContact() {
       </label>
       <label>
         <span>Notes</span>
-        <textarea
-          name="notes"
-          defaultValue={contact.notes}
-          rows={6}
-        />
+        <textarea name="notes" defaultValue={contact.notes} rows={6} />
       </label>
       <p>
         <button type="submit">Save</button>
-        <button type="button" onClick={() => {
+        <button
+          type="button"
+          onClick={() => {
             navigate(-1);
-          }}>Cancel</button>
+          }}
+        >
+          Cancel
+        </button>
       </p>
     </Form>
   );
