@@ -1,35 +1,45 @@
-import { Form, useLoaderData, useFetcher } from "react-router-dom";
-import type {LoaderFunctionArgs, ActionFunctionArgs} from "react-router-dom";
+import { Form, useFetcher, useParams } from "react-router-dom";
+import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router-dom";
 import { getContact, updateContact } from "../contacts";
+import { queryClient } from "@/App";
+import { useQuery } from "@tanstack/react-query";
 
-export async function loader({ params }: LoaderFunctionArgs) {
-  const contact = await getContact(params.contactId);
-  if (!contact) {
-    throw new Response("", {
-      status: 404,
-      statusText: "Not Found",
-    });
-  }
-  return { contact };
-}
+const contactDetailQuery = (id: string) => ({
+  queryKey: ["contacts", "detail", id],
+  queryFn: async () => {
+    const contact = await getContact(id);
+    if (!contact) {
+      throw new Response("", {
+        status: 404,
+        statusText: "Not Found",
+      });
+    }
+    return contact;
+  },
+});
 
-export async function action({ request, params }: ActionFunctionArgs) {
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  const query = contactDetailQuery(params.contactId as string);
+  return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
+};
+
+export const action = async ({ request, params }: ActionFunctionArgs) => {
   let formData = await request.formData();
-  return updateContact(params.contactId, {
+  const contact = await updateContact(params.contactId, {
     favorite: formData.get("favorite") === "true",
   });
-}
+  await queryClient.invalidateQueries({ queryKey: ["contacts"] });
+  return contact;
+};
 
 export default function Contact() {
-  const { contact } = useLoaderData();
+  const params = useParams();
+  const { data: contact } = useQuery(contactDetailQuery(params.contactId as string));
 
   return (
     <div id="contact">
       <div>
-        <img
-          key={contact.avatar}
-          src={contact.avatar || null}
-        />
+        <img key={contact.avatar} src={contact.avatar || null} />
       </div>
 
       <div>
@@ -46,11 +56,7 @@ export default function Contact() {
 
         {contact.twitter && (
           <p>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={`https://twitter.com/${contact.twitter}`}
-            >
+            <a target="_blank" rel="noreferrer" href={`https://twitter.com/${contact.twitter}`}>
               {contact.twitter}
             </a>
           </p>
@@ -66,11 +72,7 @@ export default function Contact() {
             method="post"
             action="destroy"
             onSubmit={(event) => {
-              if (
-                !confirm(
-                  "Please confirm you want to delete this record."
-                )
-              ) {
+              if (!confirm("Please confirm you want to delete this record.")) {
                 event.preventDefault();
               }
             }}
@@ -89,17 +91,13 @@ function Favorite({ contact }) {
   if (fetcher.formData) {
     favorite = fetcher.formData.get("favorite") === "true";
   }
-  
+
   return (
     <fetcher.Form method="post">
       <button
         name="favorite"
         value={favorite ? "false" : "true"}
-        aria-label={
-          favorite
-            ? "Remove from favorites"
-            : "Add to favorites"
-        }
+        aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
       >
         {favorite ? "★" : "☆"}
       </button>
