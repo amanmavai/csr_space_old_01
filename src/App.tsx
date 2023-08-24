@@ -8,6 +8,16 @@ import ErrorPage from "./error-page";
 import EditContact, { action as editAction } from "./routes/edit";
 import { action as destroyAction } from "./routes/destroy";
 import Index from "./routes";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 10,
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -73,7 +83,12 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />
+      <ReactQueryDevtools position="bottom-right" />
+    </QueryClientProvider>
+  );
 }
 
 function NavItem({
