@@ -10,90 +10,64 @@ const state = {
   Child: 0,
   Child2: 0,
 };
-function Child() {
-  const phase = state.Child > 0 ? "[UPDATE]" : "[MOUNT]";
-  console.log(`%c    Child: render start ${phase}`, "color: MediumSpringGreen");
 
-  const [count, setCount] = React.useState(() => {
-    console.log("%c    Child: useState(() => 0)", "color: tomato");
+type ComponentNames = keyof typeof state;
+
+function useLogger({ componentName }: { componentName: ComponentNames }) {
+  const phase = state[componentName] > 0 ? "[UPDATE]" : "[MOUNT]";
+  console.log(`%c    ${componentName}: render start ${phase}`, "color: MediumSpringGreen");
+
+  const [count, setCount] = React.useState<number>(() => {
+    console.log(`%c    ${componentName}: useState(() => 0)`, "color: tomato");
     return 0;
   });
 
   React.useEffect(() => {
-    state.Child++;
-    console.log("%c    Child: useEffect(() => {})", "color: LightCoral");
+    state[componentName]++;
+    console.log("%c    ${componentName}: useEffect(() => {})", "color: LightCoral");
     return () => {
-      console.log("%c    Child: useEffect(() => {}) cleanup 🧹", "color: LightCoral");
+      console.log("%c    ${componentName}: useEffect(() => {}) cleanup 🧹", "color: LightCoral");
     };
   });
 
   React.useEffect(() => {
-    console.log("%c    Child: useEffect(() => {}, [])", "color: MediumTurquoise");
+    console.log("%c    ${componentName}: useEffect(() => {}, [count])", "color: HotPink");
     return () => {
-      console.log(`%c    Child: useEffect(() => {}, []) cleanup - [UNMOUNT] 🧹`, "color: MediumTurquoise");
-      state.Child = 0;
-    };
-  }, []);
-
-  React.useEffect(() => {
-    console.log("%c    Child: useEffect(() => {}, [count])", "color: HotPink");
-    return () => {
-      console.log("%c    Child: useEffect(() => {}, [count]) cleanup 🧹", "color: HotPink");
+      console.log("%c    ${componentName}: useEffect(() => {}, [count]) cleanup 🧹", "color: HotPink");
     };
   }, [count]);
 
-  const element = (
+  React.useEffect(() => {
+    console.log("%c    ${componentName}: useEffect(() => {}, [])", "color: MediumTurquoise");
+    return () => {
+      console.log(`%c    ${componentName}: useEffect(() => {}, []) cleanup - [UNMOUNT] 🧹`, "color: MediumTurquoise");
+      state[componentName] = 0;
+    };
+  }, []);
+
+  console.log(`%c    ${componentName}: render end`, "color: MediumSpringGreen");
+
+  return [count, setCount] as const;
+}
+
+function Child() {
+  const [count, setCount] = useLogger({ componentName: "Child" });
+
+  return (
     <button className="btn btn-blue" onClick={() => setCount((previousCount) => previousCount + 1)}>
       {count}
     </button>
   );
-
-  console.log("%c    Child: render end", "color: MediumSpringGreen");
-
-  return element;
 }
 
 function Child2() {
-  const phase = state.Child2 > 0 ? "[UPDATE]" : "[MOUNT]";
-  console.log(`%c    Child2: render start ${phase}`, "color: MediumSpringGreen");
+  const [count, setCount] = useLogger({ componentName: "Child2" });
 
-  const [count, setCount] = React.useState(() => {
-    console.log("%c    Child2: useState(() => 0)", "color: tomato");
-    return 0;
-  });
-
-  React.useEffect(() => {
-    state.Child2++;
-    console.log("%c    Child2: useEffect(() => {})", "color: LightCoral");
-    return () => {
-      console.log("%c    Child2: useEffect(() => {}) cleanup 🧹", "color: LightCoral");
-    };
-  });
-
-  React.useEffect(() => {
-    console.log("%c    Child2: useEffect(() => {}, [])", "color: MediumTurquoise");
-    return () => {
-      console.log("%c    Child2: useEffect(() => {}, []) cleanup - [UNMOUNT] 🧹", "color: MediumTurquoise");
-      state.Child2 = 0;
-    };
-  }, []);
-
-  React.useEffect(() => {
-    console.log("%c    Child2: useEffect(() => {}, [count])", "color: HotPink");
-    return () => {
-      console.log("%c    Child2: useEffect(() => {}, [count]) cleanup 🧹", "color: HotPink");
-    };
-  }, [count]);
-
-  const element = (
+  return (
     <button className="btn btn-blue" onClick={() => setCount((previousCount) => previousCount + 1)}>
       {count}
     </button>
   );
-
-  console.log("%c    Child2: render end", "color: MediumSpringGreen");
-
-  return element;
 }
 
 export function Component() {
