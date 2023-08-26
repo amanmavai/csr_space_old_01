@@ -24,9 +24,9 @@ function useLogger({ componentName }: { componentName: ComponentNames }) {
 
   React.useEffect(() => {
     state[componentName]++;
-    console.log("%c    ${componentName}: useEffect(() => {})", "color: LightCoral");
+    console.log(`%c    ${componentName}: useEffect(() => {})`, "color: LightCoral");
     return () => {
-      console.log("%c    ${componentName}: useEffect(() => {}) cleanup 🧹", "color: LightCoral");
+      console.log(`%c    ${componentName}: useEffect(() => {}) cleanup 🧹`, "color: LightCoral");
     };
   });
 
