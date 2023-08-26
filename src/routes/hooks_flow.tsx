@@ -7,7 +7,7 @@ import * as React from "react";
 
 const state = {
   App: 0,
-  Child: 0,
+  Child1: 0,
   Child2: 0,
 };
 
@@ -50,8 +50,8 @@ function useLogger({ componentName }: { componentName: ComponentNames }) {
   return [count, setCount] as const;
 }
 
-function Child() {
-  const [count, setCount] = useLogger({ componentName: "Child" });
+function Child1() {
+  const [count, setCount] = useLogger({ componentName: "Child1" });
 
   return (
     <button className="btn btn-blue" onClick={() => setCount((previousCount) => previousCount + 1)}>
@@ -74,7 +74,7 @@ export function Component() {
   const phase = state.App > 0 ? "[UPDATE]" : "[MOUNT]";
   console.log(`%cApp: render start ${phase}`, "color: MediumSpringGreen");
 
-  const [showChild, setShowChild] = React.useState(() => {
+  const [showChild1, setShowChild1] = React.useState(() => {
     console.log("%cApp: useState(() => false)", "color: tomato", "child1");
     return false;
   });
@@ -101,16 +101,16 @@ export function Component() {
   }, []);
 
   React.useEffect(() => {
-    console.log("%cApp: useEffect(() => {}, [showChild])", "color: HotPink");
+    console.log("%cApp: useEffect(() => {}, [showChild1, showChild2])", "color: HotPink");
     return () => {
-      console.log("%cApp: useEffect(() => {}, [showChild]) cleanup 🧹", "color: HotPink");
+      console.log("%cApp: useEffect(() => {}, [showChild1, showChild2]) cleanup 🧹", "color: HotPink");
     };
-  }, [showChild, showChild2]);
+  }, [showChild1, showChild2]);
 
   const element = (
     <div>
       <label className="text-lg leading-loose">
-        <input type="checkbox" checked={showChild} onChange={(e) => setShowChild(e.target.checked)} /> show child
+        <input type="checkbox" checked={showChild1} onChange={(e) => setShowChild1(e.target.checked)} /> show child 1
       </label>
       <div
         style={{
@@ -121,7 +121,7 @@ export function Component() {
           border: "solid",
         }}
       >
-        {showChild ? <Child /> : null}
+        {showChild1 ? <Child1 /> : null}
       </div>
 
       <label className="text-lg leading-loose">
