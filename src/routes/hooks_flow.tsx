@@ -93,19 +93,19 @@ export function Component() {
   });
 
   React.useEffect(() => {
+    console.log("%cApp: useEffect(() => {}, [showChild1, showChild2])", "color: HotPink");
+    return () => {
+      console.log("%cApp: useEffect(() => {}, [showChild1, showChild2]) cleanup 🧹", "color: HotPink");
+    };
+  }, [showChild1, showChild2]);
+
+  React.useEffect(() => {
     console.log("%cApp: useEffect(() => {}, [])", "color: MediumTurquoise");
     return () => {
       console.log("%cApp: useEffect(() => {}, []) cleanup - [UNMOUNT] 🧹", "color: MediumTurquoise");
       state.App = 0;
     };
   }, []);
-
-  React.useEffect(() => {
-    console.log("%cApp: useEffect(() => {}, [showChild1, showChild2])", "color: HotPink");
-    return () => {
-      console.log("%cApp: useEffect(() => {}, [showChild1, showChild2]) cleanup 🧹", "color: HotPink");
-    };
-  }, [showChild1, showChild2]);
 
   const element = (
     <div>
