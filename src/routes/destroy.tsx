@@ -1,8 +1,9 @@
-import { redirect } from "react-router-dom";
+import { ActionFunctionArgs, redirect } from "react-router-dom";
 import { deleteContact } from "../contacts";
+import { queryClient } from "@/App";
 
-export async function action({ params }) {
-  throw new Error("oh dang!");
+export async function action({ params }: ActionFunctionArgs) {
   await deleteContact(params.contactId);
-  return redirect("/");
+  queryClient.invalidateQueries({ queryKey: ['contacts'] })
+  return redirect("/cx/");
 }
