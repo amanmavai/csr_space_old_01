@@ -31,14 +31,14 @@ function useLogger({ componentName }: { componentName: ComponentNames }) {
   });
 
   React.useEffect(() => {
-    console.log("%c    ${componentName}: useEffect(() => {}, [count])", "color: HotPink");
+    console.log(`%c    ${componentName}: useEffect(() => {}, [count])`, "color: HotPink");
     return () => {
-      console.log("%c    ${componentName}: useEffect(() => {}, [count]) cleanup 🧹", "color: HotPink");
+      console.log(`%c    ${componentName}: useEffect(() => {}, [count]) cleanup 🧹`, "color: HotPink");
     };
   }, [count]);
 
   React.useEffect(() => {
-    console.log("%c    ${componentName}: useEffect(() => {}, [])", "color: MediumTurquoise");
+    console.log(`%c    ${componentName}: useEffect(() => {}, [])`, "color: MediumTurquoise");
     return () => {
       console.log(`%c    ${componentName}: useEffect(() => {}, []) cleanup - [UNMOUNT] 🧹`, "color: MediumTurquoise");
       state[componentName] = 0;
