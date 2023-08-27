@@ -15,8 +15,8 @@ extendHighchartsWithModules([Drilldown]);
 
 // https://github.com/highcharts/highcharts-react
 export interface HighchartsRefObject {
-  getChartRef: () => Highcharts.Chart;
-  getContainerRef: () => React.RefObject<HTMLDivElement>;
+  chartRef: Highcharts.Chart;
+  containerRef: React.RefObject<HTMLDivElement>;
 }
 
 interface Props {
@@ -130,13 +130,7 @@ const HighchartsReact = React.forwardRef<HighchartsRefObject, Props>(function Hi
         }
       }
     }
-  }, [
-    props.options,
-    props.allowChartUpdate,
-    props.updateArgs,
-    props.constructorType,
-    props.callback
-  ]);
+  }, [props.options, props.allowChartUpdate, props.updateArgs, props.constructorType, props.callback]);
 
   useIsomorphicLayoutEffect(() => {
     return () => {
@@ -151,14 +145,14 @@ const HighchartsReact = React.forwardRef<HighchartsRefObject, Props>(function Hi
 
   React.useImperativeHandle(
     ref,
-    () => {
-      return {
-        getChartRef: () => {
-          return chartRef.current as Highcharts.Chart;
-        },
-        getContainerRef: () => containerRef,
-      };
-    },
+    () => ({
+      get chartRef() {
+        return chartRef.current as Highcharts.Chart;
+      },
+      get containerRef() {
+        return containerRef;
+      },
+    }),
     []
   );
 
