@@ -44,6 +44,99 @@ const options: Highcharts.Options = {
   ],
 };
 
+const drillDownOptions = {
+  chart: {
+    type: "column",
+  },
+  title: {
+    text: "Basic drilldown",
+  },
+  xAxis: {
+    type: "category",
+  },
+
+  legend: {
+    enabled: false,
+  },
+
+  plotOptions: {
+    series: {
+      borderWidth: 0,
+      dataLabels: {
+        enabled: true,
+      },
+    },
+  },
+
+  series: [
+    {
+      name: "Things",
+      colorByPoint: true,
+      data: [
+        {
+          name: "Animals",
+          y: 5,
+          drilldown: "animals",
+        },
+        {
+          name: "Fruits",
+          y: 2,
+          drilldown: "fruits",
+        },
+        {
+          name: "Cars",
+          y: 4,
+          drilldown: "cars",
+        },
+        {
+          name: "Stuff",
+          y: 5,
+          drilldown: "stuff",
+        }
+      ],
+    },
+  ],
+  drilldown: {
+    series: [
+      {
+        id: "animals",
+        data: [
+          ["Cats", 4],
+          ["Dogs", 2],
+          ["Cows", 1],
+          ["Sheep", 2],
+          ["Pigs", 1],
+        ],
+      },
+      {
+        id: "fruits",
+        data: [
+          ["Apples", 4],
+          ["Oranges", 2],
+        ],
+      },
+      {
+        id: "cars",
+        data: [
+          ["Toyota", 4],
+          ["Opel", 2],
+          ["Volkswagen", 2],
+        ],
+      },
+      {
+        id: "stuff",
+        data: [
+          ["Pen", 4],
+          ["Paper", 2],
+          ["Bed", 2],
+          ["Table", 12],
+          ["Chair", 23],
+        ],
+      },
+    ],
+  },
+};
+
 export function Component() {
   const ref = React.useRef<HighchartsRefObject>();
 
@@ -71,7 +164,7 @@ export function Component() {
     <div>
       <Button onClick={handleClick}>Update Chart</Button>
       <HighchartsReact
-        options={options}
+        options={drillDownOptions}
         containerProps={{ id: "highchart_container", test_id: "highchart_testid" }}
         ref={ref}
         callback={(chart) => {
