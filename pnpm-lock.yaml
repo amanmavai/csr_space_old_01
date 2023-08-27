@@ -44,6 +44,9 @@ dependencies:
   clsx:
     specifier: ^2.0.0
     version: 2.0.0
+  highcharts:
+    specifier: ^11.1.0
+    version: 11.1.0
   localforage:
     specifier: ^1.10.0
     version: 1.10.0
@@ -2666,6 +2669,10 @@ packages:
     engines: {node: '>= 0.4.0'}
     dependencies:
       function-bind: 1.1.1
+
+  /highcharts@11.1.0:
+    resolution: {integrity: sha512-vhmqq6/frteWMx0GKYWwEFL25g4OYc7+m+9KQJb/notXbNtIb8KVy+ijOF7XAFqF165cq0pdLIePAmyFY5ph3g==}
+    dev: false
 
   /ignore@5.2.4:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
