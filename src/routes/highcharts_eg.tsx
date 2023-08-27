@@ -1,8 +1,9 @@
 import React from "react";
 import HighchartsReact, { HighchartsRefObject } from "@/components/highchart_utils";
 import { Button } from "@/components/ui/button";
+import * as Highcharts from "highcharts";
 
-const options = {
+const options: Highcharts.Options = {
   title: {
     text: "Unemployment rates in engineering and ICT subjects, 2021",
     align: "left",
