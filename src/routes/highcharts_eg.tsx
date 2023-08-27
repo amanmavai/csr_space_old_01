@@ -3,101 +3,42 @@ import HighchartsReact, { HighchartsRefObject } from "@/components/highchart_uti
 import { Button } from "@/components/ui/button";
 
 const options = {
-  chart: {
-    type: "spline",
-  },
   title: {
-    text: "Monthly Average Temperature",
+    text: "Unemployment rates in engineering and ICT subjects, 2021",
+    align: "left",
   },
   subtitle: {
     text:
-      "Source: " +
-      '<a href="https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature" ' +
-      'target="_blank">Wikipedia.com</a>',
+      "Chart option: Plain | Source: " +
+      '<a href="https://www.nav.no/no/nav-og-samfunn/statistikk/arbeidssokere-og-stillinger-statistikk/helt-ledige"' +
+      'target="_blank">NAV</a>',
+    align: "left",
   },
+  colors: [
+    "#4caefe",
+    "#3fbdf3",
+    "#35c3e8",
+    "#2bc9dc",
+    "#20cfe1",
+    "#16d4e6",
+    "#0dd9db",
+    "#03dfd0",
+    "#00e4c5",
+    "#00e9ba",
+    "#00eeaf",
+    "#23e274",
+  ],
   xAxis: {
     categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    accessibility: {
-      description: "Months of the year",
-    },
-  },
-  yAxis: {
-    title: {
-      text: "Temperature",
-    },
-    labels: {
-      format: "{value}°",
-    },
-  },
-  tooltip: {
-    crosshairs: true,
-    shared: true,
-  },
-  plotOptions: {
-    spline: {
-      marker: {
-        radius: 4,
-        lineColor: "#666666",
-        lineWidth: 1,
-      },
-    },
   },
   series: [
     {
-      name: "Tokyo",
-      marker: {
-        symbol: "square",
-      },
-      data: [
-        5.2,
-        5.7,
-        8.7,
-        13.9,
-        18.2,
-        21.4,
-        25.0,
-        {
-          y: 26.4,
-          marker: {
-            symbol: "url(https://www.highcharts.com/samples/graphics/sun.png)",
-          },
-          accessibility: {
-            description: "Sunny symbol, this is the warmest point in the chart.",
-          },
-        },
-        22.8,
-        17.5,
-        12.1,
-        7.6,
-      ],
-    },
-    {
-      name: "Bergen",
-      marker: {
-        symbol: "diamond",
-      },
-      data: [
-        {
-          y: 1.5,
-          marker: {
-            symbol: "url(https://www.highcharts.com/samples/graphics/snow.png)",
-          },
-          accessibility: {
-            description: "Snowy symbol, this is the coldest point in the chart.",
-          },
-        },
-        1.6,
-        3.3,
-        5.9,
-        10.5,
-        13.5,
-        14.5,
-        14.4,
-        11.5,
-        8.7,
-        4.7,
-        2.6,
-      ],
+      type: "column",
+      name: "Unemployed",
+      borderRadius: 5,
+      colorByPoint: true,
+      data: [5412, 4977, 4730, 4437, 3947, 3707, 4143, 3609, 3311, 3072, 2899, 2887],
+      showInLegend: false,
     },
   ],
 };
@@ -107,10 +48,23 @@ export function Component() {
 
   function handleClick() {
     // capture chart ref object (perform any chart related operations using this ref)
-    const chartRef = ref.current?.getChartRef();
+    const chartRef = ref.current?.chartRef;
+
+    chartRef?.update({
+      chart: {
+        inverted: true,
+        polar: false,
+      },
+      subtitle: {
+        text:
+          "Chart option: Plain | Source: " +
+          '<a href="https://www.nav.no/no/nav-og-samfunn/statistikk/arbeidssokere-og-stillinger-statistikk/helt-ledige"' +
+          'target="_blank">NAV</a>',
+      },
+    });
 
     // capture chart container ref object
-    const containerRef = ref.current?.getContainerRef();
+    const containerRef = ref.current?.containerRef;
   }
   return (
     <div>
@@ -119,8 +73,10 @@ export function Component() {
         options={options}
         containerProps={{ id: "highchart_container", test_id: "highchart_testid" }}
         ref={ref}
+        callback={(chart) => {
+          console.log(chart);
+        }}
       />
-      ;
     </div>
   );
 }
