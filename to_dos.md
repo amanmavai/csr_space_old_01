@@ -1,6 +1,7 @@
-- [ ] create custom HighCharts Component in react
 
 # completed
+- [x] add module support for Highcharts component
+- [x] create custom HighCharts Component in react
 - [x] add hooksflow example
 - [x] finish adding react-query to contacts page
 - [x] add react-query
