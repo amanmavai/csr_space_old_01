@@ -14,7 +14,7 @@ export function extendHighchartsWithModules(modules: any[]) {
 extendHighchartsWithModules([Drilldown]);
 
 // https://github.com/highcharts/highcharts-react
-export interface RefObject {
+export interface HighchartsRefObject {
   getChartRef: () => Highcharts.Chart;
   getContainerRef: () => React.RefObject<HTMLDivElement>;
 }
@@ -86,7 +86,7 @@ interface Props {
 // in a parent component's `componentDidMount`.
 const useIsomorphicLayoutEffect = typeof document !== "undefined" ? React.useLayoutEffect : React.useEffect;
 
-const HighchartsReact = React.forwardRef<RefObject, Props>(function HighchartsReact(props, ref) {
+const HighchartsReact = React.forwardRef<HighchartsRefObject, Props>(function HighchartsReact(props, ref) {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const chartRef = React.useRef<Highcharts.Chart>();
 

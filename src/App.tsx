@@ -75,6 +75,10 @@ const router = createBrowserRouter([
         lazy: () => import("./routes/hooks_flow"),
       },
       {
+        path: "highcharts-eg",
+        lazy: () => import("./routes/highcharts_eg"),
+      },
+      {
         path: "*",
         element: <NoMatch />,
       },
@@ -126,6 +130,7 @@ const navItems = [
   { name: "Components Playground", to: "/components-playground" },
   { name: "Traffic Light", to: "/traffic-light" },
   { name: "Hooks Flow", to: "/hooks-flow" },
+  { name: "Highcharts Example", to: "/highcharts-eg" },
 ];
 
 type MenuItem = {
