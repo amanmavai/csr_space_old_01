@@ -1,43 +1,56 @@
 ```jsx
-useEffect(() => {
-  const H = props.highcharts || window.Highcharts;
-  const constructorType = props.constructorType || 'chart';
+import React, { useEffect, useRef } from 'react';
 
-  if (!H) {
-    console.warn('The "highcharts" property was not passed.');
-    return;
-  }
+const HighchartsReact = (props) => {
+  const chartRef = useRef(null);
+  const containerRef = useRef(null);
 
-  if (!H[constructorType]) {
-    console.warn(
-      'The "constructorType" property is incorrect or some required module is not imported.'
-    );
-    return;
-  }
+  // useEffect for initialization and cleanup
+  useEffect(() => {
+    const H = props.highcharts || window.Highcharts;
 
-  if (!props.options) {
-    console.warn('The "options" property was not passed.');
-    return;
-  }
-
-  if (chartRef.current?.chart) {
-    if (props.allowChartUpdate) {
-      chartRef.current.update(props.options, ...(props.updateArgs || [true, true]));
+    if (!H || typeof H !== 'object') {
+      console.warn('The "highcharts" property was not passed or is not valid.');
       return;
-    } else {
-      chartRef.current.destroy();
-      chartRef.current = null;
     }
-  }
 
-  if (!chartRef.current) {
-    chartRef.current = H[constructorType](containerRef.current, props.options, props.callback);
-  }
+    const constructorType = props.constructorType || 'chart';
+    if (!H[constructorType]) {
+      console.warn('The "constructorType" property is incorrect or some required module is not imported.');
+      return;
+    }
 
-  return () => {
-    chartRef.current?.destroy();
-    chartRef.current = null;
-  };
-}, [props.options, props.allowChartUpdate, props.updateArgs, props.containerProps, props.highcharts, props.constructorType]);
+    if (!props.options || typeof props.options !== 'object') {
+      console.warn('The "options" property was not passed or is not valid.');
+      return;
+    }
+
+    if (containerRef.current) {
+      chartRef.current = H[constructorType](containerRef.current, props.options, props.callback);
+    } else {
+      console.warn('The container for Highcharts is not available.');
+    }
+
+    // Cleanup function to avoid memory leaks
+    return () => {
+      if (chartRef.current) {
+        chartRef.current.destroy();
+        chartRef.current = null;
+      }
+    };
+  }, []); // This effect runs only on mount and unmount
+
+  // useEffect for handling chart updates
+  useEffect(() => {
+    if (chartRef.current && props.allowChartUpdate) {
+      // Updating the chart instance, not creating a new one
+      chartRef.current.update(props.options, ...(props.updateArgs || [true, true]));
+    }
+  }, [props.options, props.allowChartUpdate, props.updateArgs]);
+
+  return <div ref={containerRef}></div>;
+};
+
+export default HighchartsReact;
 
 ```
