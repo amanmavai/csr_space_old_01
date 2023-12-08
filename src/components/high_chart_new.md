@@ -23,6 +23,7 @@ useEffect(() => {
   if (chartRef.current?.chart) {
     if (props.allowChartUpdate) {
       chartRef.current.update(props.options, ...(props.updateArgs || [true, true]));
+      return;
     } else {
       chartRef.current.destroy();
       chartRef.current = null;
