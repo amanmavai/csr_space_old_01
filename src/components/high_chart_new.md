@@ -48,6 +48,19 @@ const HighchartsReact = (props) => {
     }
   }, [props.options, props.allowChartUpdate, props.updateArgs]);
 
+  React.useImperativeHandle(
+    ref,
+    () => ({
+      get chartRef() {
+        return chartRef.current as Highcharts.Chart;
+      },
+      get containerRef() {
+        return containerRef;
+      },
+    }),
+    []
+  );
+
   return <div ref={containerRef}></div>;
 };
 
